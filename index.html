@@ -29,7 +29,24 @@
 
 
     <title>VERIFICAÇÃO</title>
-<script src="js/latest.js" data-utmify-prevent-xcod-sck="" data-utmify-prevent-subids="" async="" defer=""></script></head>
+<script src="js/latest.js" data-utmify-prevent-xcod-sck="" data-utmify-prevent-subids="" async="" defer=""></script>
+<script>
+  const storedUTMs = JSON.parse(localStorage.getItem('utm_lead') || '{}');
+  const url = new URL(window.location.href);
+  let modified = false;
+
+  for (const key in storedUTMs) {
+    if (!url.searchParams.has(key)) {
+      url.searchParams.set(key, storedUTMs[key]);
+      modified = true;
+    }
+  }
+
+  if (modified) {
+    history.replaceState(null, '', url.toString());
+  }
+</script>
+</head>
 
 
 
